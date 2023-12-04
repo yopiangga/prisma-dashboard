@@ -1,6 +1,6 @@
 import { Button, Input, useTheme } from "react-daisyui";
 import { useContext, useState } from "react";
-import { UsersServices } from "src/services/UsersServices";
+import { UsersServices } from "src/services/AuthServices";
 import { LoadingContext } from "src/context/LoadingContext";
 import { UserContext } from "src/context/UserContext";
 import toast from "react-hot-toast";

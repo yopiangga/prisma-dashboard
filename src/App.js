@@ -6,7 +6,7 @@ import { UserContext } from "./context/UserContext";
 import LoadComponent from "./components/load";
 import AuthRouterPage from "./router/AuthRouterPage";
 import { cookies } from "./services/config";
-import { UsersServices } from "./services/UsersServices";
+import { UsersServices } from "./services/AuthServices";
 import OperatorRouterPage from "./router/OperatorRouterPage";
 import AdminRouterPage from "./router/AdminRouterPage";
 
