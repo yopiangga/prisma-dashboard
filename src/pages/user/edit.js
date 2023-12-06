@@ -30,7 +30,7 @@ export function UserEditPage() {
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-12 sm:col-span-6 bg-white shadow-lg py-8 px-6 rounded-lg h-fit">
-            <h4 className="f-h4 text-center">Add User</h4>
+            <h4 className="f-h4 text-center">Edit User</h4>
             <br />
             <div className="mt-0">
               <InputDefault
