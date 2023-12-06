@@ -5,9 +5,15 @@ import { HomePage } from "src/pages/home";
 import { HospitalPage } from "src/pages/hospital";
 import { HospitalAddPage } from "src/pages/hospital/add";
 import { HospitalEditPage } from "src/pages/hospital/edit";
+import { MedicalRecordPage } from "src/pages/medical-record";
+import { MedicalRecordAddPage } from "src/pages/medical-record/add";
+import { MedicalRecordEditPage } from "src/pages/medical-record/edit";
 import { PatientPage } from "src/pages/patient";
 import { PatientAddPage } from "src/pages/patient/add";
 import { PatientEditPage } from "src/pages/patient/edit";
+import { UserPage } from "src/pages/user";
+import { UserAddPage } from "src/pages/user/add";
+import { UserEditPage } from "src/pages/user/edit";
 
 export default function AdminRouterPage() {
   return (
@@ -23,6 +29,20 @@ export default function AdminRouterPage() {
           <Route path="/patient" element={<PatientPage />} />
           <Route path="/patient/add" element={<PatientAddPage />} />
           <Route path="/patient/edit/:id" element={<PatientEditPage />} />
+
+          <Route path="/medical-record" element={<MedicalRecordPage />} />
+          <Route
+            path="/medical-record/add"
+            element={<MedicalRecordAddPage />}
+          />
+          <Route
+            path="/medical-record/edit/:id"
+            element={<MedicalRecordEditPage />}
+          />
+
+          <Route path="/user" element={<UserPage />} />
+          <Route path="/user/add" element={<UserAddPage />} />
+          <Route path="/user/edit/:id" element={<UserEditPage />} />
 
           <Route path="*" element={<HomePage />} exact />
         </Routes>
