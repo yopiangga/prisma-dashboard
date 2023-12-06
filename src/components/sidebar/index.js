@@ -45,7 +45,7 @@ const menus = [
     name: "Profile",
     icon: FiUser,
     role: ["admin", "operator"],
-    link: "/profile",
+    link: "/me",
   },
 ];
 

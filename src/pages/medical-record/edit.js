@@ -3,6 +3,7 @@ import { Button } from "react-daisyui";
 import { useNavigate } from "react-router-dom";
 import { InputDefault } from "src/components/input/input-default";
 import { InputImage } from "src/components/input/input-image";
+import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
 
 export function MedicalRecordEditPage() {

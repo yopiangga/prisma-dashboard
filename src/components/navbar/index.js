@@ -35,7 +35,7 @@ export function NavbarDefault() {
         <button
           onClick={() => {
             setPage("Profile");
-            navigate("/profile/me");
+            navigate("/me");
           }}
           className="rounded-full w-10 h-10 overflow-hidden"
         >

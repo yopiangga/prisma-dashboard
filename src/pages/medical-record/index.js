@@ -1,3 +1,8 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ActionIndex } from "src/components/action-index";
+import { TableComponent } from "src/components/table";
+
 export function MedicalRecordPage() {
   const navigate = useNavigate();
 

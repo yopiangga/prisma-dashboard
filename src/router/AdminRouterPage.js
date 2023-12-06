@@ -8,6 +8,8 @@ import { HospitalEditPage } from "src/pages/hospital/edit";
 import { MedicalRecordPage } from "src/pages/medical-record";
 import { MedicalRecordAddPage } from "src/pages/medical-record/add";
 import { MedicalRecordEditPage } from "src/pages/medical-record/edit";
+import { MyProfilePage } from "src/pages/my-profile";
+import { MyProfileEditPage } from "src/pages/my-profile/edit";
 import { PatientPage } from "src/pages/patient";
 import { PatientAddPage } from "src/pages/patient/add";
 import { PatientEditPage } from "src/pages/patient/edit";
@@ -43,6 +45,9 @@ export default function AdminRouterPage() {
           <Route path="/user" element={<UserPage />} />
           <Route path="/user/add" element={<UserAddPage />} />
           <Route path="/user/edit/:id" element={<UserEditPage />} />
+
+          <Route path="/me" element={<MyProfilePage />} />
+          <Route path="/me/edit/:id" element={<MyProfileEditPage />} />
 
           <Route path="*" element={<HomePage />} exact />
         </Routes>
