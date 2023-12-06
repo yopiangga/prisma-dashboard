@@ -47,7 +47,7 @@ export default function AdminRouterPage() {
           <Route path="/user/edit/:id" element={<UserEditPage />} />
 
           <Route path="/me" element={<MyProfilePage />} />
-          <Route path="/me/edit/:id" element={<MyProfileEditPage />} />
+          <Route path="/me/edit" element={<MyProfileEditPage />} />
 
           <Route path="*" element={<HomePage />} exact />
         </Routes>

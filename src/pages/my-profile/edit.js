@@ -1,51 +1,19 @@
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { ButtonComponent } from "src/components/button";
 import { InputDefault } from "src/components/input/input-default";
+import { Button } from "react-daisyui";
 
 export function MyProfileEditPage() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ name: "" });
 
-  useEffect(() => {}, []);
-
-  //   async function fetchProfile() {
-  //     const res = await userServices.GetProfile();
-
-  //     if (res.code == 200) {
-  //       setForm(res.data);
-  //     } else {
-  //       toast.error("Gagal mengambil data");
-  //     }
-  //   }
-
   function handleChange(e) {
-    if (e.target.name == "image") {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.files[0],
-        preview: URL.createObjectURL(e.target.files[0]),
-      });
-      return;
-    }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-
-    // const res = await userServices.UpdateProfile({
-    //   name: formData.name,
-    // });
-
-    // if (res.code == 200) {
-    //   toast.success("Berhasil mengubah data");
-    //   navigate(-1);
-    // } else {
-    //   toast.error("Gagal mengubah data");
-    // }
   }
 
   return (
@@ -69,15 +37,23 @@ export function MyProfileEditPage() {
             </div>
 
             <div className="mt-4 flex gap-4">
-              <ButtonComponent
-                color="bg-slate-400"
-                action={() => {
-                  navigate("/my-profile");
+              <Button
+                className="grow"
+                color="neutral"
+                onClick={() => {
+                  navigate("/me");
                 }}
-                title={"Cancel"}
                 type="button"
-              />
-              <ButtonComponent type="submit" title={"Submit"} />
+              >
+                Cancel
+              </Button>
+              <Button
+                className="bg-primary-main grow"
+                color="neutral"
+                type="submit"
+              >
+                Submit
+              </Button>
             </div>
           </div>
         </div>
