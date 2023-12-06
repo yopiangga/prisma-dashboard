@@ -16,6 +16,12 @@ const menus = [
     link: "/",
   },
   {
+    name: "Hospital",
+    icon: FiHome,
+    role: ["admin"],
+    link: "/hospital",
+  },
+  {
     name: "Profile",
     icon: FiHome,
     role: ["admin", "operator"],

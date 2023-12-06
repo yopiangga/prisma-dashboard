@@ -1,6 +1,6 @@
 import { Button, Input, useTheme } from "react-daisyui";
 import { useContext, useState } from "react";
-import { UsersServices } from "src/services/AuthServices";
+import { AuthServices } from "src/services/AuthServices";
 import { LoadingContext } from "src/context/LoadingContext";
 import { UserContext } from "src/context/UserContext";
 import toast from "react-hot-toast";
@@ -9,7 +9,7 @@ import { version } from "src/config/Version";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export function SignInPage() {
-  const usersServices = new UsersServices();
+  const authServices = new AuthServices();
 
   const { loading, setLoading } = useContext(LoadingContext);
 
