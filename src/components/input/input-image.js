@@ -1,5 +1,4 @@
 import { FileInput } from "react-daisyui";
-import imageExample from "src/assets/images/popular-menu/1.svg";
 
 export function InputImage({
   label,
