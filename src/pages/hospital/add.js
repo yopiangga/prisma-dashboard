@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { Button } from "react-daisyui";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { InputDefault } from "src/components/input/input-default";
 import { InputImage } from "src/components/input/input-image";
 import { InputTextarea } from "src/components/input/input-textarea";
+import { HospitalServices } from "src/services/HospitalServices";
 
 export function HospitalAddPage() {
   const navigate = useNavigate();
+  const hospitalServices = new HospitalServices();
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    name: "Hospital C",
+    description: "Description Hospital C",
+    address:
+      "Jl. Mayjen Prof. Dr. Moestopo No.6-8, Airlangga, Kec. Gubeng, Kota SBY, Jawa Timur 60286",
+    noTelp: "831 5501078",
+    image: null,
+  });
   const [preview, setPreview] = useState(null);
 
   const handleChange = (e) => {
@@ -22,7 +32,13 @@ export function HospitalAddPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const res = hospitalServices.createHospital({ ...formData });
+
+    if (res) {
+      toast.success("Hospital added successfully");
+      navigate("/hospital");
+    }
   };
 
   return (
@@ -75,7 +91,7 @@ export function HospitalAddPage() {
                 value={formData.noTelp}
                 handleChange={handleChange}
                 placeholder="831 5501078"
-                type="number"
+                type="text"
                 required={true}
               />
             </div>

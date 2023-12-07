@@ -26,17 +26,17 @@ export class HospitalServices {
     }
   }
 
-  async createHospital(name, description, address, noTelp, image) {
-    const data = new FormData();
-    data.append("name", name);
-    data.append("description", description);
-    data.append("address", address);
-    data.append("noTelp", noTelp);
-    data.append("image", image);
+  async createHospital({ name, description, address, noTelp, image }) {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("address", address);
+    formData.append("noTelp", noTelp);
+    formData.append("image", image);
 
     try {
-      const response = await axios.post(`${baseUrl}/hospitals`, data, {
-        headersFormData,
+      const response = await axios.post(`${baseUrl}/hospitals`, formData, {
+        headers: headersFormData,
       });
       return response.data;
     } catch (error) {
@@ -45,7 +45,7 @@ export class HospitalServices {
     }
   }
 
-  async updateHospital(id, name, description, address, noTelp, image) {
+  async updateHospital({ id, name, description, address, noTelp, image }) {
     const data = new FormData();
     data.append("name", name);
     data.append("description", description);
@@ -55,7 +55,7 @@ export class HospitalServices {
 
     try {
       const response = await axios.put(`${baseUrl}/hospitals/${id}`, data, {
-        headersFormData,
+        headers: headersFormData,
       });
       return response.data;
     } catch (error) {
