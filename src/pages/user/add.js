@@ -1,16 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-daisyui";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { InputDefault } from "src/components/input/input-default";
 import { InputImage } from "src/components/input/input-image";
 import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
+import { HospitalServices } from "src/services/HospitalServices";
+import { UsersServices } from "src/services/UsersServices";
 
 export function UserAddPage() {
   const navigate = useNavigate();
+  const usersServices = new UsersServices();
+  const hospitalServices = new HospitalServices();
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    name: "Opeartor 2",
+    email: "operator2@email.com",
+    password: "12345678",
+    role: "operator",
+    idHospital: 1,
+    image: null,
+  });
   const [preview, setPreview] = useState(null);
+
+  const [hospitals, setHospitals] = useState([]);
+
+  useEffect(() => {
+    fetchHospitals();
+  }, []);
+
+  const fetchHospitals = async () => {
+    const res = await hospitalServices.getHospitals();
+
+    if (res) setHospitals(res.data);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,7 +47,12 @@ export function UserAddPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const res = usersServices.createUser({ ...formData });
+    if (res) {
+      toast.success("User added successfully");
+      navigate("/user");
+    }
   };
 
   return (
@@ -34,6 +63,17 @@ export function UserAddPage() {
             <h4 className="f-h4 text-center">Add User</h4>
             <br />
             <div className="mt-0">
+              <InputDefault
+                label="Name"
+                name="name"
+                value={formData.name}
+                handleChange={handleChange}
+                placeholder="Full name"
+                type="text"
+                required={true}
+              />
+            </div>
+            <div className="mt-2">
               <InputDefault
                 label="Email"
                 name="email"
@@ -56,14 +96,18 @@ export function UserAddPage() {
               />
             </div>
             <div className="mt-2">
-              <InputDefault
-                label="Name"
-                name="name"
-                value={formData.name}
+              <InputSelect
+                label="Hospital"
+                name="idHospital"
+                value={formData.idHospital}
                 handleChange={handleChange}
-                placeholder="Hospital name"
+                placeholder="Select Hospital"
                 type="text"
                 required={true}
+                options={hospitals.map((hospital) => ({
+                  value: hospital.id,
+                  label: hospital.name,
+                }))}
               />
             </div>
             <div className="mt-2">
@@ -76,8 +120,8 @@ export function UserAddPage() {
                 type="text"
                 required={true}
                 options={[
-                  { value: "admin", label: "Admin" },
-                  { value: "user", label: "User" },
+                  { value: "doctor", label: "Doctor" },
+                  { value: "operator", label: "Operator" },
                 ]}
               />
             </div>

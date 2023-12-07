@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ActionIndex } from "src/components/action-index";
 import { TableComponent } from "src/components/table";
@@ -57,7 +58,14 @@ export function UserPage() {
           {
             color: "error",
             name: "Delete",
-            callback: async (id) => {},
+            callback: async (id) => {
+              const res = await usersServices.deleteUser({ id });
+
+              if (res) {
+                toast.success("User deleted successfully");
+                fetch();
+              }
+            },
           },
         ]}
         data={data || []}
