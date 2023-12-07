@@ -1,32 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ActionIndex } from "src/components/action-index";
 import { TableComponent } from "src/components/table";
+import { HospitalServices } from "src/services/HospitalServices";
 
 export function HospitalPage() {
   const navigate = useNavigate();
+  const hospitalServices = new HospitalServices();
 
-  const [data, setData] = useState([
-    {
-      id: 1,
-      name: "RSUD Dr. Soetomo",
-      description: "Rumah Sakit Umum Daerah Dr. Soetomo Surabaya",
-      address:
-        "Jl. Mayjen Prof. Dr. Moestopo No.6-8, Airlangga, Kec. Gubeng, Kota SBY, Jawa Timur 60286",
-      noTelp: "0315501078",
-      image: "https://www.rsudrsoetomo.jatimprov.go.id/images/logo.png",
-    },
-  ]);
+  const [data, setData] = useState([]);
 
   const headerTable = [
     { code: "id", name: "ID" },
     { code: "name", name: "Name" },
     { code: "description", name: "Description" },
     { code: "address", name: "Address" },
-    { code: "noTelp", name: "No Telephone" },
+    { code: "no_telp", name: "No Telephone" },
     { code: "image", name: "Image", type: "image" },
     { code: "action", name: "Action" },
   ];
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
+  async function fetch(offset) {
+    const res = await hospitalServices.getHospitals();
+
+    console.log(res);
+
+    if (res) setData(res.data);
+  }
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -63,20 +67,6 @@ export function HospitalPage() {
       />
 
       <br />
-
-      {/* <div className="flex justify-end">
-        <PaginationComponent
-          active={offset}
-          data={Array.from(
-            { length: products?.meta?.total / 20 + 1 },
-            (_, index) => index + 1
-          )}
-          callback={(index) => {
-            fetch(index * 20);
-            setOffset(index);
-          }}
-        />
-      </div> */}
     </div>
   );
 }

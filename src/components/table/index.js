@@ -48,7 +48,7 @@ export function TableComponent({ header, action, data }) {
                         <img
                           className="h-10"
                           src={item[headerItem.code]}
-                          alt={item[headerItem.code]}
+                          // alt={item[headerItem.code]}
                         />
                       </span>
                     );
