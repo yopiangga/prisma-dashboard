@@ -28,8 +28,6 @@ export function HospitalPage() {
   async function fetch(offset) {
     const res = await hospitalServices.getHospitals();
 
-    console.log(res);
-
     if (res) setData(res.data);
   }
 

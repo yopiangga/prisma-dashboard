@@ -26,13 +26,13 @@ const menus = [
   {
     name: "Patient",
     icon: TbUsersGroup,
-    role: ["admin", "operator"],
+    role: ["operator"],
     link: "/patient",
   },
   {
     name: "Medical Record",
     icon: BsClipboard2Data,
-    role: ["admin", "operator"],
+    role: ["operator"],
     link: "/medical-record",
   },
   {
