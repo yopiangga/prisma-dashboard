@@ -9,6 +9,7 @@ import { cookies } from "./services/config";
 import { UsersServices } from "./services/AuthServices";
 import OperatorRouterPage from "./router/OperatorRouterPage";
 import AdminRouterPage from "./router/AdminRouterPage";
+import { UserServices } from "./services/UserServices";
 
 // const queryClient = new QueryClient();
 
@@ -23,30 +24,31 @@ function App() {
 export default App;
 
 function UserManager() {
-  // const userServices = new UsersServices();
+  const userServices = new UserServices();
   const { user, setUser } = useContext(UserContext);
   const [load, setLoad] = useState(true);
 
   useEffect(() => {
-    // fetch();
-    setTimeout(() => {
-      setLoad(false);
-    }, 1000);
+    fetch();
   }, []);
 
-  // async function fetch() {
-  //   // get cookies token
-  //   const payload = JWTPayload(cookies?.token ?? "");
-  //   console.log(payload);
-  //   if (payload) {
-  //     setUser({
-  //       name: payload.name,
-  //       email: payload.email,
-  //       userRole: payload.user_role,
-  //     });
-  //   }
-  //   setLoad(false);
-  // }
+  async function fetch() {
+    const token = cookies?.token ?? "";
+
+    if (token === "" || token === undefined) {
+      setUser(null);
+    } else {
+      const res = await userServices.myProfile();
+      if (res) {
+        console.log(res.data);
+        setUser(res.data);
+      } else {
+        setUser(null);
+      }
+    }
+
+    setLoad(false);
+  }
 
   if (load) {
     return (

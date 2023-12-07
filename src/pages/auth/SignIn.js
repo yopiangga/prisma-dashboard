@@ -6,6 +6,7 @@ import { UserContext } from "src/context/UserContext";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import { version } from "src/config/Version";
+import imageLogo from "src/assets/images/logo.png";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 export function SignInPage() {
@@ -16,8 +17,8 @@ export function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const [auth, setAuth] = useState({
-    email: "",
-    password: "",
+    email: "admin@email.com",
+    password: "12345678",
   });
 
   const handleChange = (e) => {
@@ -29,24 +30,19 @@ export function SignInPage() {
 
     setLoading(true);
 
-    // const res = await usersServices.SignIn({
-    //   email: auth.email,
-    //   password: auth.password,
-    // });
+    const res = await authServices.SignIn({
+      email: auth.email,
+      password: auth.password,
+    });
 
-    // setLoading(false);
+    setLoading(false);
 
-    // if (res?.message != null) {
-    //   toast.error(res.message[0]);
-    // } else if (res) {
-    //   const payload = JWTPayload(res.token);
-
-    //   if (payload) {
-    //     toast.success("Success sign in");
-    //     document.cookie = `token=${res.token}`;
-    //     window.location.href = "/";
-    //   }
-    // }
+    if (res?.message != null) {
+      toast.error(res.message);
+    } else if (res) {
+      document.cookie = `token=${res.token}`;
+      window.location.href = "/";
+    }
   };
 
   return (
@@ -63,7 +59,7 @@ export function SignInPage() {
         </div>
         <div className="text-center text-neutral-900 mt-8">
           <h1 className="f-h1">Hi There!</h1>
-          <p className="f-p1-r">Welcome to Dismore Dashboard</p>
+          <p className="f-p1-r">Welcome to Prisma LAB Dashboard</p>
           <p className="f-p2-r">v {version}</p>
         </div>
 
@@ -133,16 +129,19 @@ export function SignInPage() {
           </form>
         </div>
       </div>
-      <div className="lg:col-span-7 lg:block relative hidden">
-        <div className="w-full h-full absolute">
-          {/* <img src={imageBackground} alt="My Image" className="h-full w-full" /> */}
+      <div className="lg:col-span-7 lg:flex relative hidden bg-slate-900 flex-col items-center justify-end">
+        <div className="flex justify-end w-11/12">
+          <img src={imageLogo} />
         </div>
-        <div className="absolute right-10 bottom-10 text-secondary-main text-right p-10 w-3/4">
-          <h1 className="f-h1">
-            There us no love sincerer than the love of food
+        <br />
+        <div className="text-white text-right w-11/12 flex flex-col items-end">
+          <h1 className="f-h1 w-2/3">
+            There is no love sincerer than the love of health
           </h1>
-          <p className="f-p1-m">- George Bernard Shaw, Author.</p>
+          <p className="f-p1-m mt-2">- Alfian Prisma Yopiangga, Author.</p>
         </div>
+        <br />
+        <br />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FiMenu } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-// import iconAvatar from "src/assets/icon/avatar.svg";
+import iconAvatar from "src/assets/icons/avatar.png";
 import { PageContext } from "src/context/PageContext";
 import { SidebarContext } from "src/context/SidebarContext";
 import { UserContext } from "src/context/UserContext";
@@ -39,7 +39,7 @@ export function NavbarDefault() {
           }}
           className="rounded-full w-10 h-10 overflow-hidden"
         >
-          {/* <img src={iconAvatar} /> */}
+          <img src={iconAvatar} />
         </button>
       </div>
     </div>
