@@ -59,7 +59,7 @@ export class UsersServices {
     }
   }
 
-  async deleteUserById({ id }) {
+  async deleteUser({ id }) {
     try {
       const res = await axios.delete(`${baseUrl}/users/${id}`, {
         headers,
