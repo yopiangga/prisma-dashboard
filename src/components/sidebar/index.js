@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "src/context/UserContext";
-// import imageLogoWhite from "src/assets/logo-white.svg";
-// import iconDahboard from "src/assets/icon/menu-dashboard.svg";
-// import iconLogOut from "src/assets/icon/menu-logout.svg";
 import { PageContext } from "src/context/PageContext";
 import { SidebarContext } from "src/context/SidebarContext";
-import { FiX, FiHome } from "react-icons/fi";
+import { FiX, FiHome, FiUser, FiUsers, FiLifeBuoy } from "react-icons/fi";
+import { RiHospitalLine } from "react-icons/ri";
+import { TbUsersGroup } from "react-icons/tb";
+import { FaUserDoctor } from "react-icons/fa6";
+import { BsClipboard2Data } from "react-icons/bs";
+import { PiSignOutBold } from "react-icons/pi";
 
 const menus = [
   {
@@ -17,15 +19,33 @@ const menus = [
   },
   {
     name: "Hospital",
-    icon: FiHome,
+    icon: RiHospitalLine,
     role: ["admin"],
     link: "/hospital",
   },
   {
-    name: "Profile",
-    icon: FiHome,
+    name: "Patient",
+    icon: TbUsersGroup,
     role: ["admin", "operator"],
-    link: "/profile",
+    link: "/patient",
+  },
+  {
+    name: "Medical Record",
+    icon: BsClipboard2Data,
+    role: ["admin", "operator"],
+    link: "/medical-record",
+  },
+  {
+    name: "User",
+    icon: FaUserDoctor,
+    role: ["admin"],
+    link: "/user",
+  },
+  {
+    name: "Profile",
+    icon: FiUser,
+    role: ["admin", "operator"],
+    link: "/me",
   },
 ];
 
@@ -62,8 +82,9 @@ export function SidebarDefault() {
         <FiX color="fff" size={24} />
       </button>
       <div className="h-full flex flex-col">
-        <div className="mb-4 w-40">
-          {/* <img src={imageLogoWhite} alt="Logo" /> */}
+        <div className="mb-4 w-full flex gap-2 items-center px-3">
+          <FiLifeBuoy size={28} color="#fff" />
+          <h2 className="f-h4 text-white">PRISMA LAB</h2>
         </div>
 
         <div className="flex flex-col gap-1 mt-4 grow">
@@ -83,8 +104,8 @@ export function SidebarDefault() {
                       : ""
                   }`}
                 >
-                  <div className="w-5">
-                    <img src={menu.icon} className="" />
+                  <div className="">
+                    <menu.icon color="fff" size={24} />
                   </div>
                   <h4 className="uppercase text-[12px] font-bold text-white text-left">
                     {menu.name}
@@ -98,8 +119,8 @@ export function SidebarDefault() {
             onClick={() => handleLogout()}
             className="md:hidden flex items-center w-full gap-4 py-3 px-3 rounded-md hover:bg-slate-900 hover:bg-opacity-30 mt-4"
           >
-            <div className="w-5">
-              {/* <img src={iconLogOut} className="" /> */}
+            <div className="">
+              <PiSignOutBold size={24} color="#fff" />
             </div>
             <h4 className="uppercase text-[10px] font-bold text-white">
               Log Out
@@ -112,8 +133,8 @@ export function SidebarDefault() {
             onClick={() => handleLogout()}
             className="flex items-center w-full gap-4 py-3 px-3 rounded-md hover:bg-slate-900 hover:bg-opacity-30"
           >
-            <div className="w-5">
-              {/* <img src={iconLogOut} className="" /> */}
+            <div className="">
+              <PiSignOutBold size={24} color="#fff" />
             </div>
             <h4 className="uppercase text-[10px] font-bold text-white">
               Log Out

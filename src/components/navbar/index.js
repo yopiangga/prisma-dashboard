@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FiMenu } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import iconAvatar from "src/assets/icons/avatar.png";
+import iconAvatar from "src/assets/icon/avatar.svg";
 import { PageContext } from "src/context/PageContext";
 import { SidebarContext } from "src/context/SidebarContext";
 import { UserContext } from "src/context/UserContext";
@@ -30,12 +30,12 @@ export function NavbarDefault() {
           <h5 className="f-h5">
             <p>{user.name}</p>
           </h5>
-          <p className="f-p2-r capitalize">{user.userRole}</p>
+          <p className="f-p2-r capitalize">{user.role}</p>
         </div>
         <button
           onClick={() => {
             setPage("Profile");
-            navigate("/profile/me");
+            navigate("/me");
           }}
           className="rounded-full w-10 h-10 overflow-hidden"
         >
