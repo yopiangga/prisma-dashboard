@@ -98,7 +98,7 @@ export function SidebarDefault() {
                     navigate(menu.link);
                   }}
                   className={`flex items-center gap-4 py-3 px-3 rounded-md hover:bg-slate-900 hover:bg-opacity-30 ${
-                    page == menu.name.toLowerCase() ||
+                    page == menu.name ||
                     (page == "" && menu.name == "Dashboard")
                       ? "bg-slate-900 bg-opacity-30"
                       : ""

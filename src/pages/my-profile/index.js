@@ -1,9 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserServices } from "src/services/UserServices";
 
 export function MyProfilePage() {
   const navigate = useNavigate();
+
+  const userServices = new UserServices();
+
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    const res = await userServices.myProfile();
+
+    if (res) setUser(res.data);
+  };
 
   return (
     <div className="col-span-12">
@@ -11,7 +25,7 @@ export function MyProfilePage() {
         <div className="col-span-12 sm:col-span-6 bg-white shadow-s1 w-full rounded-lg flex p-5 gap-5">
           <div className="w-fit">
             <img
-              src="https://www.w3schools.com/howto/img_avatar.png"
+              src={user?.image || "/assets/images/user.png"}
               className="w-28 rounded-full"
             />
           </div>
