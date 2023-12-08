@@ -15,11 +15,11 @@ export function UserAddPage() {
   const hospitalServices = new HospitalServices();
 
   const [formData, setFormData] = useState({
-    name: "Opeartor 2",
-    email: "operator2@email.com",
-    password: "12345678",
-    role: "operator",
-    idHospital: 1,
+    name: "",
+    email: "",
+    password: "",
+    role: "doctor",
+    idHospital: null,
     image: null,
   });
   const [preview, setPreview] = useState(null);
@@ -33,7 +33,10 @@ export function UserAddPage() {
   const fetchHospitals = async () => {
     const res = await hospitalServices.getHospitals();
 
-    if (res) setHospitals(res.data);
+    if (res) {
+      setFormData({ ...formData, idHospital: res.data[0].id });
+      setHospitals(res.data);
+    }
   };
 
   const handleChange = (e) => {

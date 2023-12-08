@@ -12,11 +12,10 @@ export function HospitalAddPage() {
   const hospitalServices = new HospitalServices();
 
   const [formData, setFormData] = useState({
-    name: "Hospital C",
-    description: "Description Hospital C",
-    address:
-      "Jl. Mayjen Prof. Dr. Moestopo No.6-8, Airlangga, Kec. Gubeng, Kota SBY, Jawa Timur 60286",
-    noTelp: "831 5501078",
+    name: "",
+    description: "",
+    address: "",
+    noTelp: "",
     image: null,
   });
   const [preview, setPreview] = useState(null);
