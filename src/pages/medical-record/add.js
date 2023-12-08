@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { Button } from "react-daisyui";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { InputDefault } from "src/components/input/input-default";
 import { InputImage } from "src/components/input/input-image";
 import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
+import { MedicalRecordServices } from "src/services/MedicalRecordServices";
 
 export function MedicalRecordAddPage() {
   const navigate = useNavigate();
+  const medicalRecordServices = new MedicalRecordServices();
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    idPatient: 2,
+    description: "Description",
+    image: null,
+  });
   const [preview, setPreview] = useState(null);
 
   const handleChange = (e) => {
@@ -21,9 +28,16 @@ export function MedicalRecordAddPage() {
     setPreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    const res = await medicalRecordServices.createMedicalRecord({
+      ...formData,
+    });
+
+    if (res) {
+      toast.success("Medical Record created successfully");
+      navigate("/medical-record");
+    }
   };
 
   return (
@@ -37,7 +51,7 @@ export function MedicalRecordAddPage() {
               <InputSelect
                 label="Patient"
                 name="patient"
-                value={formData.patient}
+                value={formData.idPatient}
                 handleChange={handleChange}
                 placeholder="Patient"
                 required={true}
@@ -63,7 +77,7 @@ export function MedicalRecordAddPage() {
           <div className="col-span-12 sm:col-span-6 bg-white shadow-lg py-8 px-6 rounded-lg h-fit">
             <div className="mt-2">
               <InputImage
-                label="Hospital Image"
+                label="Medical Image"
                 name="image"
                 value={formData.image}
                 preview={preview}
