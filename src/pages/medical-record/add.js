@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-daisyui";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -7,17 +7,34 @@ import { InputImage } from "src/components/input/input-image";
 import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
 import { MedicalRecordServices } from "src/services/MedicalRecordServices";
+import { PatientServices } from "src/services/PatientServices";
 
 export function MedicalRecordAddPage() {
   const navigate = useNavigate();
   const medicalRecordServices = new MedicalRecordServices();
+  const patientServices = new PatientServices();
 
   const [formData, setFormData] = useState({
-    idPatient: 2,
-    description: "Description",
+    idPatient: null,
+    description: "",
     image: null,
   });
   const [preview, setPreview] = useState(null);
+
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    fetchPatient();
+  }, []);
+
+  async function fetchPatient() {
+    const res = await patientServices.getPatients();
+
+    if (res) {
+      setFormData({ ...formData, idPatient: res.data[0].id });
+      setPatients(res.data);
+    }
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,10 +72,10 @@ export function MedicalRecordAddPage() {
                 handleChange={handleChange}
                 placeholder="Patient"
                 required={true}
-                options={[
-                  { value: "1", label: "Patient 1" },
-                  { value: "2", label: "Patient 2" },
-                ]}
+                options={patients.map((patient) => ({
+                  value: patient.id,
+                  label: patient.name,
+                }))}
               />
             </div>
             <div className="mt-2">

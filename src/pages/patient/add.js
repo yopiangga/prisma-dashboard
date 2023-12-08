@@ -12,10 +12,10 @@ export function PatientAddPage() {
   const patientServices = new PatientServices();
 
   const [formData, setFormData] = useState({
-    nik: "3120600001",
-    name: "Patient - Alfian Prisma",
-    address: "RT 16 RW 05 Gambyok Grogol",
-    noTelp: "082330510986",
+    nik: "",
+    name: "",
+    address: "",
+    noTelp: "",
     image: null,
   });
   const [preview, setPreview] = useState(null);
