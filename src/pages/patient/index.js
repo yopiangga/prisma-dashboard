@@ -1,32 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ActionIndex } from "src/components/action-index";
 import { TableComponent } from "src/components/table";
+import { PatientServices } from "src/services/PatientServices";
 
 export function PatientPage() {
   const navigate = useNavigate();
 
-  const [data, setData] = useState([
-    {
-      id: 1,
-      nik: "123456789",
-      name: "John Doe",
-      address:
-        "Jl. Mayjen Prof. Dr. Moestopo No.6-8, Airlangga, Kec. Gubeng, Kota SBY, Jawa Timur 60286",
-      noTelp: "0315501078",
-      image: "https://www.rsudrsoetomo.jatimprov.go.id/images/logo.png",
-    },
-  ]);
+  const patientServices = new PatientServices();
+
+  const [data, setData] = useState([]);
 
   const headerTable = [
     { code: "id", name: "ID" },
     { code: "nik", name: "NIK" },
     { code: "name", name: "Name" },
     { code: "address", name: "Address" },
-    { code: "noTelp", name: "No Telephone" },
+    { code: "no_telp", name: "No Telephone" },
     { code: "image", name: "Image", type: "image" },
     { code: "action", name: "Action" },
   ];
+
+  useEffect(() => {
+    fetchPatient();
+  }, []);
+
+  const fetchPatient = async () => {
+    const response = await patientServices.getPatients();
+    setData(response.data);
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -56,7 +59,13 @@ export function PatientPage() {
           {
             color: "error",
             name: "Delete",
-            callback: async (id) => {},
+            callback: async (id) => {
+              const res = await patientServices.deletePatient(id);
+              if (res) {
+                toast.success("Success delete patient");
+                await fetchPatient();
+              }
+            },
           },
         ]}
         data={data || []}

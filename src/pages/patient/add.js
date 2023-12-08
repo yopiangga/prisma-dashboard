@@ -1,14 +1,23 @@
 import { useState } from "react";
 import { Button } from "react-daisyui";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { InputDefault } from "src/components/input/input-default";
 import { InputImage } from "src/components/input/input-image";
 import { InputTextarea } from "src/components/input/input-textarea";
+import { PatientServices } from "src/services/PatientServices";
 
 export function PatientAddPage() {
   const navigate = useNavigate();
+  const patientServices = new PatientServices();
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    nik: "3120600001",
+    name: "Patient - Alfian Prisma",
+    address: "RT 16 RW 05 Gambyok Grogol",
+    noTelp: "082330510986",
+    image: null,
+  });
   const [preview, setPreview] = useState(null);
 
   const handleChange = (e) => {
@@ -22,7 +31,13 @@ export function PatientAddPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const res = patientServices.createPatient({ ...formData });
+
+    if (res) {
+      toast.success("Patient created successfully");
+      navigate("/patient");
+    }
   };
 
   return (
@@ -43,7 +58,7 @@ export function PatientAddPage() {
                 required={true}
               />
             </div>
-            <div className="mt-0">
+            <div className="mt-2">
               <InputDefault
                 label="Name"
                 name="name"
@@ -82,7 +97,7 @@ export function PatientAddPage() {
           <div className="col-span-12 sm:col-span-6 bg-white shadow-lg py-8 px-6 rounded-lg h-fit">
             <div className="mt-2">
               <InputImage
-                label="Hospital Image"
+                label="Patient Image"
                 name="image"
                 value={formData.image}
                 preview={preview}

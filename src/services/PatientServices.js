@@ -26,17 +26,17 @@ export class PatientServices {
     }
   }
 
-  async createPatient(name, address, noTelp, image, nik) {
-    const data = new FormData();
-    data.append("name", name);
-    data.append("address", address);
-    data.append("noTelp", noTelp);
-    data.append("image", image);
-    data.append("nik", nik);
+  async createPatient({ name, address, noTelp, image, nik }) {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("address", address);
+    formData.append("noTelp", noTelp);
+    formData.append("image", image);
+    formData.append("nik", nik);
 
     try {
-      const response = await axios.post(`${baseUrl}/patients`, data, {
-        headersFormData,
+      const response = await axios.post(`${baseUrl}/patients`, formData, {
+        headers: headersFormData,
       });
       return response.data;
     } catch (error) {
