@@ -25,15 +25,13 @@ export function MedicalRecordPage() {
   ]);
 
   const headerTable = [
-    { code: "id_patient", name: "Patient ID" },
+    { code: "id", name: "ID" },
+    { code: "patient_name", name: "Patient Name" },
     { code: "image", name: "Image", type: "image" },
     { code: "diagnosis_ai", name: "Diagnosis AI" },
     { code: "diagnosis_doctor", name: "Diagnosis Doctor" },
     { code: "description", name: "Description" },
     { code: "diagnose_time", name: "Diagnose Time" },
-    { code: "id_doctor", name: "Doctor ID" },
-    { code: "id_operator", name: "Operator ID" },
-    { code: "id_hospital", name: "Hospital ID" },
     { code: "action", name: "Action" },
   ];
 
@@ -45,6 +43,7 @@ export function MedicalRecordPage() {
     const res = await medicalRecordServices.getMedicalRecords();
 
     if (res) {
+      console.log(res);
       setData(res.data);
     }
   }
