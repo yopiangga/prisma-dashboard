@@ -73,7 +73,7 @@ export function MedicalRecordAddPage() {
             <div className="mt-0">
               <InputSelect
                 label="Patient"
-                name="patient"
+                name="idPatient"
                 value={formData.idPatient}
                 handleChange={handleChange}
                 placeholder="Patient"
