@@ -1,5 +1,5 @@
 import axios from "axios";
-import { baseUrl } from "src/config/Url";
+import { baseUrl, baseUrlFlask } from "src/config/Url";
 import { handleAxiosError, handleOtherStatusCodes } from "./errors";
 import { headers, headersFormData } from "./config";
 
@@ -28,15 +28,35 @@ export class MedicalRecordServices {
     }
   }
 
-  async createMedicalRecord({ idPatient, image, description }) {
+  async createMedicalRecord({ idPatient, image, description, diagnosisAi }) {
     const formData = new FormData();
     formData.append("idPatient", idPatient);
     formData.append("image", image);
     formData.append("description", description);
+    formData.append("diagnosisAi", diagnosisAi);
 
     try {
       const response = await axios.post(
         `${baseUrl}/medical-records`,
+        formData,
+        {
+          headers: headersFormData,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      handleAxiosError(error);
+      handleOtherStatusCodes(error);
+    }
+  }
+
+  async classificationMedicalRecord({ image }) {
+    const formData = new FormData();
+    formData.append("file", image);
+
+    try {
+      const response = await axios.post(
+        `${baseUrlFlask}/prediction`,
         formData,
         {
           headers: headersFormData,
