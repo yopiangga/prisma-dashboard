@@ -15,7 +15,7 @@ export function HospitalAddPage() {
     name: "",
     description: "",
     address: "",
-    noTelp: "",
+    phone: "",
     image: null,
   });
   const [preview, setPreview] = useState(null);
@@ -29,10 +29,10 @@ export function HospitalAddPage() {
     setPreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =  async (e) => {
     e.preventDefault();
 
-    const res = hospitalServices.createHospital({ ...formData });
+    const res = await hospitalServices.createHospital({ ...formData });
 
     if (res) {
       toast.success("Hospital added successfully");
@@ -86,8 +86,8 @@ export function HospitalAddPage() {
             <div className="mt-2">
               <InputDefault
                 label="No Telephone"
-                name="noTelp"
-                value={formData.noTelp}
+                name="phone"
+                value={formData.phone}
                 handleChange={handleChange}
                 placeholder="831 5501078"
                 type="text"

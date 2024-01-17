@@ -18,7 +18,7 @@ export function SignInPage() {
 
   const [auth, setAuth] = useState({
     email: "admin@email.com",
-    password: "12345678",
+    password: "123456",
   });
 
   const handleChange = (e) => {
@@ -33,16 +33,13 @@ export function SignInPage() {
     const res = await authServices.SignIn({
       email: auth.email,
       password: auth.password,
-    });
+    }); 
 
     setLoading(false);
 
-    if (res?.message != null) {
-      toast.error(res.message);
-    } else if (res) {
-      document.cookie = `token=${res.token}`;
-      window.location.href = "/";
-    }
+    toast.success(res.message);
+    document.cookie = `token=${res.data.token}`;
+    window.location.href = "/";
   };
 
   return (
