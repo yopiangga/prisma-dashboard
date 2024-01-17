@@ -19,12 +19,28 @@ export class UserServices {
     }
   }
 
-  async updateProfile({ name, image }) {
+  async updateProfile({ name}) {
+    try {
+      const res = await axios.put(`${baseUrl}/user/me`, {name}, {
+        headers: headers,
+      });
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        handleOtherStatusCodes(res.status);
+        return false;
+      }
+    } catch (err) {
+      handleAxiosError(err);
+      return false;
+    }
+  }
+
+  async updateProfileImage({ image }) {
     const formData = new FormData();
-    formData.append("name", name);
     formData.append("image", image);
     try {
-      const res = await axios.put(`${baseUrl}/user/me`, formData, {
+      const res = await axios.put(`${baseUrl}/user/me/image`, formData, {
         headers: headersFormData,
       });
       if (res.status === 200) {

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { FiEdit, FiEdit2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { UserServices } from "src/services/UserServices";
 
@@ -19,11 +21,27 @@ export function MyProfilePage() {
     if (res) setUser(res.data);
   };
 
+  const handleFileChange = async (e) => {
+    const res = await userServices.updateProfileImage({ image: e.target.files[0] });
+    if (res) {
+      toast.success("User image updated successfully");
+    }
+  };
+
   return (
     <div className="col-span-12">
       <div className="grid grid-cols-12 gap-6">
         <div className="col-span-12 sm:col-span-6 bg-white shadow-s1 w-full rounded-lg flex p-5 gap-5">
-          <div className="w-fit">
+          <div className="w-fit relative">
+            <label htmlFor="image-profile" className="absolute right-0 bottom-0 bg-primary-main rounded-full text-white p-2">
+              <FiEdit2 />
+            </label>
+            <input
+              type="file"
+              id="image-profile"
+              name="image"
+              className="hidden"
+              onChange={handleFileChange} />
             <img
               src={user?.image || "/assets/images/user.png"}
               className="w-28 rounded-full"

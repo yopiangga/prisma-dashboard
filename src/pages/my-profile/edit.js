@@ -2,11 +2,26 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputDefault } from "src/components/input/input-default";
 import { Button } from "react-daisyui";
+import { UserServices } from "src/services/UserServices";
+import toast from "react-hot-toast";
 
 export function MyProfileEditPage() {
   const navigate = useNavigate();
-
+  const userServices = new UserServices();
+  
   const [formData, setFormData] = useState({ name: "" });
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
+  async function fetch() {
+    const res = await userServices.myProfile();
+
+    if (res) {
+      setFormData(res.data);
+    }
+  }
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,6 +29,13 @@ export function MyProfileEditPage() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const res = await userServices.updateProfile({ ...formData });
+
+    if (res) {
+      toast.success("Success edit profile");
+      navigate("/me");
+    }
   }
 
   return (
