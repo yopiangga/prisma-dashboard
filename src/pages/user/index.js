@@ -13,10 +13,11 @@ export function UserPage() {
 
   const headerTable = [
     { code: "id", name: "ID" },
+    { code: "image", name: "Image", type: "image" },
     { code: "name", name: "Name" },
     { code: "email", name: "Email" },
     { code: "role", name: "Role" },
-    { code: "id_hospital", name: "Hospital ID" },
+    { code: "hospital", name: "Hospital" },
     { code: "action", name: "Action" },
   ];
 

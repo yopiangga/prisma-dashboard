@@ -48,10 +48,10 @@ export function UserAddPage() {
     setPreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = usersServices.createUser({ ...formData });
+    const res = await usersServices.createUser({ ...formData });
     if (res) {
       toast.success("User added successfully");
       navigate("/user");

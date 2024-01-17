@@ -47,7 +47,50 @@ export class UsersServices {
       const res = await axios.post(`${baseUrl}/users`, formData, {
         headers: headersFormData,
       });
-      if (res.status === 201) {
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        handleOtherStatusCodes(res.status);
+        return false;
+      }
+    } catch (err) {
+      handleAxiosError(err);
+      return false;
+    }
+  }
+
+  async updateUser({id, name, email, password, role, idHospital }) {
+    try {
+      const res = await axios.put(`${baseUrl}/users/${id}`, {
+        name,
+        email,
+        password,
+        role,
+        idHospital,
+      }, {
+        headers: headers,
+      });
+      if (res.status === 200) {
+        return res.data;
+      } else {
+        handleOtherStatusCodes(res.status);
+        return false;
+      }
+    } catch (err) {
+      handleAxiosError(err);
+      return false;
+    }
+  }
+
+  async updateUserImage({ id, image }) {
+    const formData = new FormData();
+    formData.append("image", image);
+
+    try {
+      const res = await axios.put(`${baseUrl}/users/${id}/image`, formData, {
+        headers: headersFormData,
+      });
+      if (res.status === 200) {
         return res.data;
       } else {
         handleOtherStatusCodes(res.status);
