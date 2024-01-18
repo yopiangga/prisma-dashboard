@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { FaDatabase, FaHospital, FaUsers } from "react-icons/fa6";
 import { FiUsers } from "react-icons/fi";
+import { UserContext } from "src/context/UserContext";
 import { StatisticServices } from "src/services/StatisticServices";
 
 export function HomeOperatorPage() {
   const [data, setData] = useState({});
+  const {user} = useContext(UserContext);
   const statisticServices = new StatisticServices();
 
   useEffect(() => {
@@ -14,7 +16,7 @@ export function HomeOperatorPage() {
 
   async function fetch() {
     const res = await statisticServices.getStatisticByOperator(
-      { idHospital: 1 }
+      { idHospital: user.idHospital }
     );
     setData(res.data);
   }
