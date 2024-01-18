@@ -9,29 +9,19 @@ export function MedicalRecordPage() {
   const navigate = useNavigate();
   const medicalRecordServices = new MedicalRecordServices();
 
-  const [data, setData] = useState([
-    // {
-    //   patientId: 1,
-    //   image: "https://www.rsudrsoetomo.jatimprov.go.id/images/logo.png",
-    //   diagnosisAi: "Hemorrhagic",
-    //   diagnosisDoctor: "Hemorrhagic",
-    //   description:
-    //     "Hemorrhagic Stroke is a type of stroke that occurs when a blood vessel in the brain ruptures or leaks. Blood spills into or around the brain and creates swelling and pressure, damaging cells and tissue in the brain.",
-    //   diagnoseTime: "2021-08-01 12:00:00",
-    //   idDoctor: 1,
-    //   idOperator: 1,
-    //   idHospital: 1,
-    // },
-  ]);
+  const [data, setData] = useState([]);
 
   const headerTable = [
     { code: "id", name: "ID" },
-    { code: "patient_name", name: "Patient Name" },
+    { code: "patient", name: "Patient Name" },
     { code: "image", name: "Image", type: "image" },
-    { code: "diagnosis_ai", name: "Diagnosis AI" },
-    { code: "diagnosis_doctor", name: "Diagnosis Doctor" },
+    { code: "diagnosisAI", name: "Diagnosis AI" },
+    { code: "diagnosisDoctor", name: "Diagnosis Doctor" },
     { code: "description", name: "Description" },
-    { code: "diagnose_time", name: "Diagnose Time" },
+    { code: "diagnoseTime", name: "Diagnose Time" },
+    { code: "doctor", name: "Doctor Name" },
+    { code: "operator", name: "Operator Name" },
+    { code: "hospital", name: "Hospital Name" },
     { code: "action", name: "Action" },
   ];
 

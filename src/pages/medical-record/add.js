@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Button } from "react-daisyui";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { InputDefault } from "src/components/input/input-default";
 import { InputImage } from "src/components/input/input-image";
 import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
@@ -48,13 +47,13 @@ export function MedicalRecordAddPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const resType = await medicalRecordServices.classificationMedicalRecord({
-      image: formData.image,
-    });
+    // const resType = await medicalRecordServices.classificationMedicalRecord({
+    //   image: formData.image,
+    // });
 
     const res = await medicalRecordServices.createMedicalRecord({
       ...formData,
-      diagnosisAi: resType,
+      diagnosisAi: "normal",
     });
 
     if (res) {

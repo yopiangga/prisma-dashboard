@@ -1,16 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-daisyui";
-import { useNavigate } from "react-router-dom";
-import { InputDefault } from "src/components/input/input-default";
+import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
 import { InputImage } from "src/components/input/input-image";
 import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
+import { MedicalRecordServices } from "src/services/MedicalRecordServices";
 
 export function MedicalRecordEditPage() {
   const navigate = useNavigate();
+  const {id} = useParams()
+  const medicalRecordServices = new MedicalRecordServices();
 
   const [formData, setFormData] = useState({});
   const [preview, setPreview] = useState(null);
+
+  useEffect(() => {
+    fetch()
+  }, [])
+
+  async function fetch() {
+    const res = await medicalRecordServices.getMedicalRecord(id);
+
+    if (res) {
+      setFormData(res.data);
+      setPreview(res.data.image);
+    }
+  }
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,9 +37,19 @@ export function MedicalRecordEditPage() {
     setPreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const res = await medicalRecordServices.updateMedicalRecord({
+      id: id,
+      image: formData.image,
+      description: formData.description,
+    })
+
+    if (res) {
+      toast.success("Medical Record updated successfully");
+      navigate("/medical-record");
+    }
   };
 
   return (
@@ -41,6 +67,7 @@ export function MedicalRecordEditPage() {
                 handleChange={handleChange}
                 placeholder="Patient"
                 required={true}
+                readonly={true}
                 options={[
                   { value: "1", label: "Patient 1" },
                   { value: "2", label: "Patient 2" },
