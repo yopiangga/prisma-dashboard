@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { DashboardLayout } from "src/layouts/dahsboard";
-import { HomePage } from "src/pages/home";
+import { HomeAdminPage } from "src/pages/home/admin";
 import { HospitalPage } from "src/pages/hospital";
 import { HospitalAddPage } from "src/pages/hospital/add";
 import { HospitalEditPage } from "src/pages/hospital/edit";
@@ -22,7 +22,7 @@ export default function AdminRouterPage() {
     <BrowserRouter>
       <DashboardLayout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomeAdminPage />} />
 
           <Route path="/hospital" element={<HospitalPage />} />
           <Route path="/hospital/add" element={<HospitalAddPage />} />
@@ -49,7 +49,7 @@ export default function AdminRouterPage() {
           <Route path="/me" element={<MyProfilePage />} />
           <Route path="/me/edit" element={<MyProfileEditPage />} />
 
-          <Route path="*" element={<HomePage />} exact />
+          <Route path="*" element={<HomeAdminPage />} exact />
         </Routes>
       </DashboardLayout>
     </BrowserRouter>

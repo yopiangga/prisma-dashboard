@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { DashboardLayout } from "src/layouts/dahsboard";
-import { HomePage } from "src/pages/home";
+import { HomeOperatorPage } from "src/pages/home/operator";
 import { MedicalRecordPage } from "src/pages/medical-record";
 import { MedicalRecordAddPage } from "src/pages/medical-record/add";
 import { MedicalRecordEditPage } from "src/pages/medical-record/edit";
@@ -16,7 +16,7 @@ export default function OperatorRouterPage() {
     <BrowserRouter>
       <DashboardLayout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomeOperatorPage />} />
 
           <Route path="/patient" element={<PatientPage />} />
           <Route path="/patient/add" element={<PatientAddPage />} />
@@ -35,7 +35,7 @@ export default function OperatorRouterPage() {
           <Route path="/me" element={<MyProfilePage />} />
           <Route path="/me/edit" element={<MyProfileEditPage />} />
 
-          <Route path="*" element={<HomePage />} exact />
+          <Route path="*" element={<HomeOperatorPage />} exact />
         </Routes>
       </DashboardLayout>
     </BrowserRouter>
