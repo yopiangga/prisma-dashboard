@@ -15,7 +15,7 @@ export function PatientAddPage() {
     nik: "",
     name: "",
     address: "",
-    noTelp: "",
+    phone: "",
     image: null,
   });
   const [preview, setPreview] = useState(null);
@@ -29,10 +29,10 @@ export function PatientAddPage() {
     setPreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = patientServices.createPatient({ ...formData });
+    const res = await patientServices.createPatient({ ...formData });
 
     if (res) {
       toast.success("Patient created successfully");
@@ -64,7 +64,7 @@ export function PatientAddPage() {
                 name="name"
                 value={formData.name}
                 handleChange={handleChange}
-                placeholder="Hospital name"
+                placeholder="Patient name"
                 type="text"
                 required={true}
               />
@@ -85,8 +85,8 @@ export function PatientAddPage() {
             <div className="mt-2">
               <InputDefault
                 label="No Telephone"
-                name="noTelp"
-                value={formData.noTelp}
+                name="phone"
+                value={formData.phone}
                 handleChange={handleChange}
                 placeholder="831 5501078"
                 type="number"

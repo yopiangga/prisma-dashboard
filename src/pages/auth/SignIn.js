@@ -17,8 +17,8 @@ export function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const [auth, setAuth] = useState({
-    email: "admin@email.com",
-    password: "123456",
+    email: "operator1@email.com",
+    password: "12345678",
   });
 
   const handleChange = (e) => {
@@ -37,9 +37,12 @@ export function SignInPage() {
 
     setLoading(false);
 
-    toast.success(res.message);
-    document.cookie = `token=${res.data.token}`;
-    window.location.href = "/";
+    if (res) {
+      toast.success("Login successfully");
+      document.cookie = `token=${res.data.token}`;
+      window.location.href = "/";
+    }
+
   };
 
   return (

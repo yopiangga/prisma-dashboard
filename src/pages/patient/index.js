@@ -17,7 +17,7 @@ export function PatientPage() {
     { code: "nik", name: "NIK" },
     { code: "name", name: "Name" },
     { code: "address", name: "Address" },
-    { code: "no_telp", name: "No Telephone" },
+    { code: "phone", name: "No Telephone" },
     { code: "image", name: "Image", type: "image" },
     { code: "action", name: "Action" },
   ];

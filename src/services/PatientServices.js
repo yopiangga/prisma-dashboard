@@ -26,11 +26,11 @@ export class PatientServices {
     }
   }
 
-  async createPatient({ name, address, noTelp, image, nik }) {
+  async createPatient({ name, address, phone, image, nik }) {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("address", address);
-    formData.append("noTelp", noTelp);
+    formData.append("phone", phone);
     formData.append("image", image);
     formData.append("nik", nik);
 
@@ -45,16 +45,30 @@ export class PatientServices {
     }
   }
 
-  async updatePatient(id, name, address, noTelp, image, nik) {
+  async updatePatient({id, name, address, phone, nik}) {
+    try {
+      const response = await axios.put(`${baseUrl}/patients/${id}`, {
+        name,
+        address,
+        phone,
+        nik
+      }
+      , {
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      handleAxiosError(error);
+      handleOtherStatusCodes(error);
+    }
+  }
+
+  async updatePatientImage({id, image}) {
     const data = new FormData();
-    data.append("name", name);
-    data.append("address", address);
-    data.append("noTelp", noTelp);
     data.append("image", image);
-    data.append("nik", nik);
 
     try {
-      const response = await axios.put(`${baseUrl}/patients/${id}`, data, {
+      const response = await axios.put(`${baseUrl}/patients/${id}/image`, data, {
         headersFormData,
       });
       return response.data;
