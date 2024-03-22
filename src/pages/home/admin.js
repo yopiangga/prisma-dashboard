@@ -14,15 +14,15 @@ export function HomeAdminPage() {
 
   async function fetch() {
     const res = await statisticServices.getStatisticByAdmin();
-    setData(res.data);
+    setData(res?.data);
   }
 
   return (
     <div className="col-span-12 grid lg:grid-cols-5 grid-cols-2 gap-3">
-      <Card title="Total Hospital" icon={<FaHospital />} value={data.totalHospital} />
-      <Card title="Total Doctor" icon={<FaUsers />} value={data.totalDoctor} />
-      <Card title="Total Patient" icon={<FaUsers />} value={data.totalPatient} />
-      <Card title="Total Medical Record" icon={<FaDatabase />} value={data.totalMedicalRecord} />
+      <Card title="Total Hospital" icon={<FaHospital />} value={data?.totalHospital ?? "-"} />
+      <Card title="Total Doctor" icon={<FaUsers />} value={data?.totalDoctor ?? "-"}/>
+      <Card title="Total Patient" icon={<FaUsers />} value={data?.totalPatient ?? "-"} />
+      <Card title="Total Medical Record" icon={<FaDatabase />} value={data?.totalMedicalRecord ?? "-"} />
     </div>
   );
 }
