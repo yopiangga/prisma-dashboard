@@ -28,12 +28,11 @@ export class MedicalRecordServices {
     }
   }
 
-  async createMedicalRecord({ idPatient, image, description, diagnosisAi }) {
+  async createMedicalRecord({ idPatient, image, description }) {
     const formData = new FormData();
     formData.append("idPatient", idPatient);
     formData.append("image", image);
     formData.append("description", description);
-    formData.append("diagnosisAi", diagnosisAi);
 
     try {
       const response = await axios.post(
@@ -50,24 +49,24 @@ export class MedicalRecordServices {
     }
   }
 
-  async classificationMedicalRecord({ image }) {
-    const formData = new FormData();
-    formData.append("file", image);
+  // async classificationMedicalRecord({ image }) {
+  //   const formData = new FormData();
+  //   formData.append("file", image);
 
-    try {
-      const response = await axios.post(
-        `${baseUrlFlask}/prediction`,
-        formData,
-        {
-          headers: headersFormData,
-        }
-      );
-      return response.data;
-    } catch (error) {
-      handleAxiosError(error);
-      handleOtherStatusCodes(error);
-    }
-  }
+  //   try {
+  //     const response = await axios.post(
+  //       `${baseUrlFlask}/prediction`,
+  //       formData,
+  //       {
+  //         headers: headersFormData,
+  //       }
+  //     );
+  //     return response.data;
+  //   } catch (error) {
+  //     handleAxiosError(error);
+  //     handleOtherStatusCodes(error);
+  //   }
+  // }
 
   async updateMedicalRecord({
     id,

@@ -47,13 +47,8 @@ export function MedicalRecordAddPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const resType = await medicalRecordServices.classificationMedicalRecord({
-    //   image: formData.image,
-    // });
-
     const res = await medicalRecordServices.createMedicalRecord({
       ...formData,
-      diagnosisAi: "normal",
     });
 
     if (res) {
