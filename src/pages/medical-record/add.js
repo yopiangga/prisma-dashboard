@@ -7,8 +7,16 @@ import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
 import { MedicalRecordServices } from "src/services/MedicalRecordServices";
 import { PatientServices } from "src/services/PatientServices";
+import InsightViewer, { useImage } from "@lunit/insight-viewer";
+import DicomViewer from "@lunit/insight-viewer";
+import { InputDicom } from "src/components/input/input-dicom";
+
+// const MOCK_IMAGE =
+//   "wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm";
 
 export function MedicalRecordAddPage() {
+  // const { image } = useImage({ wadouri: MOCK_IMAGE });
+
   const navigate = useNavigate();
   const medicalRecordServices = new MedicalRecordServices();
   const patientServices = new PatientServices();
@@ -93,7 +101,7 @@ export function MedicalRecordAddPage() {
           </div>
           <div className="col-span-12 sm:col-span-6 bg-white shadow-lg py-8 px-6 rounded-lg h-fit">
             <div className="mt-2">
-              <InputImage
+              <InputDicom
                 label="Medical Image"
                 name="image"
                 value={formData.image}

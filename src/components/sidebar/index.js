@@ -63,7 +63,7 @@ export function SidebarDefault() {
       const tempPage = menu.link.split("/")[1];
       return tempPage == page;
     });
-    setPage(menus[index].name);
+    setPage(menus[index]?.name);
   }, []);
 
   async function handleLogout() {

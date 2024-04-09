@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "react-daisyui";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import { InputDicom } from "src/components/input/input-dicom";
 import { InputImage } from "src/components/input/input-image";
 import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
@@ -9,15 +10,15 @@ import { MedicalRecordServices } from "src/services/MedicalRecordServices";
 
 export function MedicalRecordEditPage() {
   const navigate = useNavigate();
-  const {id} = useParams()
+  const { id } = useParams();
   const medicalRecordServices = new MedicalRecordServices();
 
   const [formData, setFormData] = useState({});
   const [preview, setPreview] = useState(null);
 
   useEffect(() => {
-    fetch()
-  }, [])
+    fetch();
+  }, []);
 
   async function fetch() {
     const res = await medicalRecordServices.getMedicalRecord(id);
@@ -44,7 +45,7 @@ export function MedicalRecordEditPage() {
       id: id,
       image: formData.image,
       description: formData.description,
-    })
+    });
 
     if (res) {
       toast.success("Medical Record updated successfully");
@@ -89,7 +90,7 @@ export function MedicalRecordEditPage() {
           </div>
           <div className="col-span-12 sm:col-span-6 bg-white shadow-lg py-8 px-6 rounded-lg h-fit">
             <div className="mt-2">
-              <InputImage
+              <InputDicom
                 label="Hospital Image"
                 name="image"
                 value={formData.image}
