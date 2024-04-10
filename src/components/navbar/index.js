@@ -39,7 +39,7 @@ export function NavbarDefault() {
           }}
           className="rounded-full w-10 h-10 overflow-hidden"
         >
-          <img src={iconAvatar} />
+          <img src={user.image ?? iconAvatar} />
         </button>
       </div>
     </div>
