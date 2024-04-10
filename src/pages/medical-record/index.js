@@ -33,7 +33,6 @@ export function MedicalRecordPage() {
     const res = await medicalRecordServices.getMedicalRecords();
 
     if (res) {
-      console.log(res);
       setData(res.data);
     }
   }

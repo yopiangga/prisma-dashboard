@@ -9,6 +9,7 @@ export function InputDefault({
   required = false,
   size = "md",
   placeholder = "",
+  readonly = false,
 }) {
   return (
     <div className="flex flex-col">
@@ -22,6 +23,7 @@ export function InputDefault({
         type={type}
         name={name}
         required={required}
+        disabled={readonly}
       />
     </div>
   );

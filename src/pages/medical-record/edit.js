@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { Button } from "react-daisyui";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import { InputDefault } from "src/components/input/input-default";
 import { InputDicom } from "src/components/input/input-dicom";
 import { InputImage } from "src/components/input/input-image";
 import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
+import LoadComponent from "src/components/load";
 import { MedicalRecordServices } from "src/services/MedicalRecordServices";
 
 export function MedicalRecordEditPage() {
@@ -13,8 +15,9 @@ export function MedicalRecordEditPage() {
   const { id } = useParams();
   const medicalRecordServices = new MedicalRecordServices();
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     fetch();
@@ -40,6 +43,7 @@ export function MedicalRecordEditPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoad(true);
 
     const res = await medicalRecordServices.updateMedicalRecord({
       id: id,
@@ -47,11 +51,21 @@ export function MedicalRecordEditPage() {
       description: formData.description,
     });
 
+    setLoad(false);
+
     if (res) {
       toast.success("Medical Record updated successfully");
       navigate("/medical-record");
     }
   };
+
+  if (!formData || load) {
+    return (
+      <div className="col-span-12">
+        <LoadComponent />
+      </div>
+    );
+  }
 
   return (
     <div className="col-span-12">
@@ -61,18 +75,13 @@ export function MedicalRecordEditPage() {
             <h4 className="f-h4 text-center">Edit Medical Record</h4>
             <br />
             <div className="mt-0">
-              <InputSelect
+              <InputDefault
                 label="Patient"
                 name="patient"
                 value={formData.patient}
-                handleChange={handleChange}
                 placeholder="Patient"
                 required={true}
                 readonly={true}
-                options={[
-                  { value: "1", label: "Patient 1" },
-                  { value: "2", label: "Patient 2" },
-                ]}
               />
             </div>
             <div className="mt-2">

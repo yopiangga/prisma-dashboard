@@ -62,6 +62,6 @@ function UserManager() {
   } else if (user.role === "admin") {
     return <AdminRouterPage />;
   } else {
-    return <h1>404 Page</h1>;
+    return <AuthRouterPage />;
   }
 }

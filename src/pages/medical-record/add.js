@@ -2,21 +2,14 @@ import { useEffect, useState } from "react";
 import { Button } from "react-daisyui";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { InputImage } from "src/components/input/input-image";
 import { InputSelect } from "src/components/input/input-select";
 import { InputTextarea } from "src/components/input/input-textarea";
 import { MedicalRecordServices } from "src/services/MedicalRecordServices";
 import { PatientServices } from "src/services/PatientServices";
-import InsightViewer, { useImage } from "@lunit/insight-viewer";
-import DicomViewer from "@lunit/insight-viewer";
 import { InputDicom } from "src/components/input/input-dicom";
-
-// const MOCK_IMAGE =
-//   "wadouri:https://static.lunit.io/fixtures/dcm-files/series/CT000002.dcm";
+import LoadComponent from "src/components/load";
 
 export function MedicalRecordAddPage() {
-  // const { image } = useImage({ wadouri: MOCK_IMAGE });
-
   const navigate = useNavigate();
   const medicalRecordServices = new MedicalRecordServices();
   const patientServices = new PatientServices();
@@ -27,11 +20,13 @@ export function MedicalRecordAddPage() {
     image: null,
   });
   const [preview, setPreview] = useState(null);
-
-  const [patients, setPatients] = useState([]);
+  const [patients, setPatients] = useState(null);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    fetchPatient();
+    setTimeout(() => {
+      fetchPatient();
+    }, 0);
   }, []);
 
   async function fetchPatient() {
@@ -54,16 +49,27 @@ export function MedicalRecordAddPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoad(true);
 
     const res = await medicalRecordServices.createMedicalRecord({
       ...formData,
     });
+
+    setLoad(false);
 
     if (res) {
       toast.success("Medical Record created successfully");
       navigate("/medical-record");
     }
   };
+
+  if (!patients || load) {
+    return (
+      <div className="col-span-12">
+        <LoadComponent />
+      </div>
+    );
+  }
 
   return (
     <div className="col-span-12">
@@ -76,14 +82,17 @@ export function MedicalRecordAddPage() {
               <InputSelect
                 label="Patient"
                 name="idPatient"
-                value={formData.idPatient}
+                value={formData?.idPatient}
                 handleChange={handleChange}
                 placeholder="Patient"
                 required={true}
-                options={patients.map((patient) => ({
-                  value: patient.id,
-                  label: patient.name,
-                }))}
+                options={
+                  patients &&
+                  patients.map((patient) => ({
+                    value: patient.id,
+                    label: patient.name,
+                  }))
+                }
               />
             </div>
             <div className="mt-2">
