@@ -90,7 +90,7 @@ export function MedicalRecordAddPage() {
                   patients &&
                   patients.map((patient) => ({
                     value: patient.id,
-                    label: patient.name,
+                    label: patient.id + " - " + patient.name,
                   }))
                 }
               />
